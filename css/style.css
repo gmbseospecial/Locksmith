@@ -33,9 +33,10 @@ header {
     background: var(--white);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid #eee;
+    border-bottom: none; /* Removed border as requested */
     padding: 0.8rem 0;
     transition: var(--transition);
+    line-height: 29px;
 }
 
 header.scrolled {
@@ -55,21 +56,45 @@ header.scrolled {
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    font-weight: 800;
-    font-size: 1.6rem; /* Slightly larger on desktop */
+    gap: 0.6rem; /* Reduced gap for a tighter look */
     text-decoration: none;
     color: var(--dark-color);
+    flex: 0 0 auto;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.95; /* Tighter vertical spacing */
+}
+
+.logo-top {
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--dark-color);
+}
+
+.logo-bottom {
+    font-size: 1.5rem;
+    font-weight: 800;
     letter-spacing: -0.5px;
-    flex: 1; /* Take space on the left */
+    color: var(--dark-color);
 }
 
 .logo svg {
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     fill: var(--primary-color);
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     flex-shrink: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .mobile-menu-toggle {
@@ -147,10 +172,7 @@ header.scrolled {
     transition: var(--transition);
     box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
     animation: pulse 2s infinite;
-    flex: 1; /* Take space on the right */
-    justify-content: flex-end; /* Align content to right */
     max-width: fit-content;
-    margin-left: auto;
 }
 
 @keyframes pulse {
@@ -181,33 +203,44 @@ header.scrolled {
 }
 
 /* Sections Base Styling */
-section {
-    padding: 6rem 1rem; /* Increased padding for better spacing */
-    max-width: 1400px;
-    margin: 0 auto;
-    border-bottom: 1px solid #f1f1f1; /* Light border line to show separation */
-    position: relative;
-}
+ section {
+     padding: 6rem 2rem; /* Equal vertical and horizontal base padding */
+     max-width: 1400px;
+     margin: 0 auto;
+     display: flex;
+     flex-direction: column;
+     align-items: center; /* Center horizontally */
+     justify-content: center; /* Center vertically if height is specified */
+     text-align: center;
+     border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border mid between sections */
+     position: relative;
+     width: 100%;
+ }
 
-section:last-of-type {
-    border-bottom: none;
-}
+ section:last-of-type {
+     border-bottom: none;
+ }
 
 .hero {
     position: relative;
-    height: 70vh;
+    width: auto; /* Updated from 384px as requested */
+    height: 590px; /* Updated from 550px as requested */
+    padding-top: 11px; /* Updated from 64px as requested */
+    padding-left: 0px; /* Updated from 24px as requested */
+    padding-right: 0px; /* Updated from 24px as requested */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: url('https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=1600'); /* High-quality Locksmith image from Unsplash */
+    background: url('https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=1600');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Parallax effect on desktop */
+    background-attachment: fixed;
     color: var(--white);
-    margin-top: 60px;
+    margin-top: 0; /* Header is fixed */
     max-width: 100%;
     overflow: hidden;
+    border-bottom: none;
 }
 
 .hero::before {
@@ -229,14 +262,21 @@ section:last-of-type {
 .hero-content {
     position: relative;
     z-index: 2;
-    padding: 3rem;
+    padding: 3rem 2rem; /* Balanced horizontal and vertical spacing inside the box */
     max-width: 900px;
-    background: rgba(0, 0, 0, 0.2); /* Mid-shadow effect in background */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    width: 90%; /* Responsive width */
+    margin: 0 auto; /* Horizontal centering */
+    margin-bottom: -63px; /* Updated from 0px as requested */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally within the box */
+    justify-content: center; /* Center content vertically within the box */
+    background: rgba(0, 0, 0, 0.25); /* Slightly darker for better visibility */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Good seeing shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle internal border mid */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); /* Enhanced shadow for 'good seeing' */
 }
 
 .hero-content h1 {
@@ -269,6 +309,7 @@ section:last-of-type {
 .hero-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center; /* Center the text and icon horizontally */
     gap: 0.8rem;
     background: linear-gradient(135deg, var(--primary-color), #c1121f);
     color: var(--white);
@@ -280,6 +321,7 @@ section:last-of-type {
     transition: var(--transition);
     box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
     animation: pulse 2s infinite;
+    text-align: center; /* Ensure text is centered if it wraps */
 }
 
 .hero-btn:hover {
@@ -296,10 +338,13 @@ section:last-of-type {
 }
 
 .usp-card {
-    padding: 2rem;
-    background: var(--light-color);
-    border-radius: 10px;
+    background: var(--white);
+    padding: 3.5rem 2.5rem;
+    border-radius: 24px;
+    text-align: center;
     transition: var(--transition);
+    border: none; /* Removed border as requested */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
 }
 
 .usp-card:hover {
@@ -318,7 +363,7 @@ section:last-of-type {
     background: #f8f9fa;
     padding: 2rem;
     border-radius: 15px;
-    border-left: 5px solid var(--secondary-color);
+    border: none; /* Removed border as requested */
 }
 
 .pricing-table {
@@ -402,94 +447,166 @@ footer {
 
 /* Mobile Responsive */
 @media (max-width: 992px) {
+    .nav-container {
+        padding: 0 0.8rem; /* Move logo further left and actions further right */
+    }
     .btn-text {
         display: none;
     }
     .emergency-btn {
-        padding: 0.8rem;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        justify-content: center;
-        order: 2; /* Phone icon middle */
-        margin-left: auto; /* Push phone icon to right next to burger */
+        padding: 0 !important;
+        border-radius: 50% !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important; /* Force minimum width */
+        min-height: 48px !important; /* Force minimum height */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+        aspect-ratio: 1 / 1 !important; /* Ensure 1:1 ratio */
+        background: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
+        overflow: hidden;
+        max-width: none !important; /* Remove any max-width constraints */
     }
     .emergency-btn i {
-        font-size: 1.2rem;
+        font-size: 1.4rem; /* Slightly larger icon */
         margin: 0;
+        padding: 0;
+        line-height: 1; /* Center vertically better */
     }
-    nav {
-        order: 3; /* Burger on far right */
+    .header-actions {
+        gap: 0.5rem; /* Reduced space between phone and menu */
+        margin-left: auto; /* Push phone + burger to the right on mobile */
+    }
+    .mobile-menu-toggle {
+        display: flex; /* Show burger menu */
+        width: 42px !important;
+        height: 42px !important;
+        min-width: 42px !important;
+        min-height: 42px !important;
+        aspect-ratio: 1 / 1 !important;
+        border-radius: 50%;
+        background: #f0f4f8; /* Light background for contrast */
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important; /* Reset padding to center burger lines */
+        flex-direction: column;
+        gap: 4px; /* Slightly tighter gap between burger lines */
+        transition: var(--transition);
+        flex-shrink: 0 !important;
+        border: none !important;
+        overflow: hidden;
+    }
+    .mobile-menu-toggle span {
+        width: 20px; /* Slightly smaller width for bars */
+        height: 2.5px; /* Slightly thinner bars */
+        margin: 0;
+        transition: all 0.3s ease;
+    }
+    .mobile-menu-toggle.active span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+    }
+    .mobile-menu-toggle.active span:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+    }
+    .logo-top {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+    }
+    .logo-bottom {
+        font-size: 1.25rem;
+        font-weight: 800;
+    }
+    .logo svg {
+        width: 32px;
+        height: 32px;
+    }
+    .logo {
+        gap: 0.4rem;
+    }
+    .nav-menu {
+        display: none; /* Hide desktop menu on mobile */
     }
 }
 
 @media (max-width: 768px) {
-    .mobile-menu-toggle {
+    section {
+        padding: 4rem 1.5rem; /* Balanced horizontal and vertical spacing for mobile */
+        min-height: auto;
         display: flex;
-        margin-left: 1rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .nav-menu {
-        position: absolute; /* Relative to header */
-        top: 100%; /* Directly below header */
-        left: 0;
-        width: 100%;
-        height: auto;
-        background: var(--white);
+        position: absolute;
+        top: calc(100% + 10px); /* Slightly tighter top gap */
+        left: 50%;
+        transform: translateX(-50%) translateY(-20px) scale(0.92); /* Center the container */
+        width: 340px; /* More compact width */
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
         flex-direction: column;
-        justify-content: flex-start;
-        align-items: stretch;
-        padding: 0.5rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0.8rem; /* Reduced padding */
+        border-radius: 20px; /* Slightly smaller radius for professional look */
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+        border: none; /* Removed border as requested */
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 1000;
-        transform: translateY(-100%);
         opacity: 0;
         visibility: hidden;
     }
 
     .nav-menu.active {
-        transform: translateY(0);
+        display: flex;
+        transform: translateX(-50%) translateY(0) scale(1); /* Center when active */
         opacity: 1;
         visibility: visible;
     }
 
     .nav-menu li {
-        margin: 0;
+        margin-bottom: 0.4rem; /* Reduced space between sections */
         width: 100%;
+        border-bottom: none;
     }
 
     .nav-menu li a {
-        display: block;
-        padding: 0.8rem 1.2rem;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #444;
-        border-radius: 8px;
-        transition: 0.2s ease;
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1.2rem; /* Reduced inner padding */
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        background: transparent;
+        text-align: left;
     }
 
     .nav-menu li a:hover,
     .nav-menu li a.active {
-        background-color: #f0f4f8;
-        color: var(--primary-color);
-    }
-
-    /* Highlight first and last links like in the image */
-    .nav-menu li:first-child a,
-    .nav-menu li:last-child a {
-        background-color: #f0f4f8;
+        background: rgba(230, 57, 70, 0.08);
         color: var(--primary-color);
     }
 
     .hero {
-        height: 80vh; /* Better for seeing image */
+        width: auto; /* Updated from 384px as requested */
+        height: 590px; /* Updated from 550px as requested */
+        padding-top: 11px; /* Updated from 64px as requested */
+        padding-left: 0px; /* Updated from 24px as requested */
+        padding-right: 0px; /* Updated from 24px as requested */
         background: url('https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80&w=800');
         background-size: cover;
         background-position: center;
         background-attachment: scroll; /* Fixed is buggy on mobile */
         display: flex;
         align-items: center;
+        justify-content: center; /* Center horizontally in mobile view */
         padding-bottom: 0;
     }
 
@@ -503,14 +620,20 @@ footer {
     }
 
     .hero-content {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: 2.5rem 1.5rem;
+        background: rgba(0, 0, 0, 0.3); /* Slightly darker for mobile clarity */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 3rem 1.5rem; /* Equal spacing on all sides for mobile */
         border-radius: 25px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        margin: 0 1rem;
-        width: calc(100% - 2rem);
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle internal border mid */
+        margin: 0 auto; /* Centered in mobile view */
+        margin-bottom: -63px; /* Updated from 0px as requested */
+        width: calc(100% - 3rem); /* Maintain horizontal margins */
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .hero-content h1 {
@@ -527,6 +650,7 @@ footer {
     .hero-btn {
         width: 100%;
         justify-content: center;
+        text-align: center;
         padding: 1rem;
         font-size: 1.1rem;
     }
