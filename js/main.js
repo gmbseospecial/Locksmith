@@ -73,12 +73,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+            
+            const firstNameEl = document.getElementById('firstname');
+            const lastNameEl = document.getElementById('lastname');
+            const nameEl = document.getElementById('name');
+            const emailEl = document.getElementById('email');
+            const messageEl = document.getElementById('message');
+
+            const firstName = firstNameEl ? firstNameEl.value.trim() : '';
+            const lastName = lastNameEl ? lastNameEl.value.trim() : '';
+            const name = nameEl ? nameEl.value.trim() : (firstName + ' ' + lastName).trim();
+            const email = emailEl ? emailEl.value.trim() : '';
+            const message = messageEl ? messageEl.value.trim() : '';
+            
             let isValid = true;
 
-            if (name === '') {
+            if (name === '' && firstName === '') {
                 isValid = false;
                 alert('Bitte geben Sie Ihren Namen ein.');
             } else if (email === '' || !email.includes('@')) {
@@ -90,8 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (isValid) {
-                alert('Vielen Dank! Ihre Nachricht wurde gesendet.');
-                contactForm.reset();
+                const successOverlay = document.getElementById('form-success');
+                if (successOverlay) {
+                    successOverlay.classList.add('active');
+                    contactForm.reset();
+                } else {
+                    alert('Vielen Dank! Ihre Nachricht wurde gesendet.');
+                    contactForm.reset();
+                }
+            }
+        });
+    }
+
+    // Handle "Send new message" button in success overlay
+    const resetFormBtn = document.getElementById('reset-form-btn');
+    if (resetFormBtn) {
+        resetFormBtn.addEventListener('click', () => {
+            const successOverlay = document.getElementById('form-success');
+            if (successOverlay) {
+                successOverlay.classList.remove('active');
             }
         });
     }
